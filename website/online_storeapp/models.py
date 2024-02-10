@@ -18,8 +18,7 @@ class GoodsModel(models.Model):
     description_product = models.TextField(verbose_name='Описание')
     price_of_product = models.DecimalField(
         max_digits=8, decimal_places=2, verbose_name='Цена')
-    quantity_of_product = models.PositiveIntegerField(
-        max_length=3, verbose_name='Количество')
+    quantity_of_product = models.PositiveIntegerField(verbose_name='Количество')
     date_product_added = models.DateTimeField(
         auto_now_add=True, verbose_name='Дата добавления')
 
