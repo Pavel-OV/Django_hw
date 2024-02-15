@@ -26,7 +26,7 @@ class GoodsModel(models.Model):
         auto_now_add=True, verbose_name='Дата добавления')
 
     def get_absolute_url(self):
-        return reverse("order_list", kwargs={'goods_id': self.pk})
+        return reverse("order_list", kwargs={'order_id': self.pk})
 
     def __str__(self):
         return self.name_product
