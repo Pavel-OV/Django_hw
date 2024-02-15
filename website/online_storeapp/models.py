@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class ClientsModel(models.Model):
@@ -10,7 +11,8 @@ class ClientsModel(models.Model):
         auto_now_add=True, verbose_name='Дата регистрации')
 
     def __str__(self):
-        return self.name_client, self.phone
+        return f''' Клиент:{self.name_client} телефон {self.phone } 
+             '''
 
 
 class GoodsModel(models.Model):
@@ -18,9 +20,13 @@ class GoodsModel(models.Model):
     description_product = models.TextField(verbose_name='Описание')
     price_of_product = models.DecimalField(
         max_digits=8, decimal_places=2, verbose_name='Цена')
-    quantity_of_product = models.PositiveIntegerField(verbose_name='Количество')
+    quantity_of_product = models.PositiveIntegerField(
+        verbose_name='Количество')
     date_product_added = models.DateTimeField(
         auto_now_add=True, verbose_name='Дата добавления')
+
+    def get_absolute_url(self):
+        return reverse("order_list", kwargs={'goods_id': self.pk})
 
     def __str__(self):
         return self.name_product
