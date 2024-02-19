@@ -6,6 +6,8 @@ from online_storeapp.models import OrderstModel, ClientsModel, GoodsModel
 from .forms import NewProduct, Buyer_Order_Date
 from django.core.files.storage import FileSystemStorage
 
+menu = []
+
 
 def index(request):
     return render(request, "online_storeapp/index.html")
@@ -30,26 +32,35 @@ def order_list(request: HttpResponse, order_id):
                                                 'buyer': buyer, 'price_total_order': price_total_order, })
 
 
+def orders_by_days(request: HttpResponse, buyer_id, count_day):
+    buyer = get_object_or_404(ClientsModel, pk=buyer_id)
+    orders = OrderstModel.objects.filter(buyer=buyer)
+    current_day = timezone.now()
+    day_of_countdown = current_day - timedelta(days=count_day)
+    list_filter_orders = []
+    for order in orders:
+        if day_of_countdown <= order.date_of_order:
+            list_filter_orders.append(order)
+    return render(request, 'online_storeapp/orders_by_days.html',
+                  {'list_filter_orders': list_filter_orders, 'buyer': buyer, 'count_day': count_day, })
+
+
 def new_product(request):
     if request.method == 'POST':
         form = NewProduct(request.POST, request.FILES)
         if form.is_valid():
             product = form.save()
             num_id = product.pk
-            # {'orders': orders, 'buyer_id': name_client}
-            return render(request, 'online_storeapp/description_product.html', {'product': product, 'product_id': num_id})
+            form = NewProduct()
+            return description_product(request, num_id)
         else:
             return render(request, 'online_storeapp/new_product.html', {'form': form})
     return render(request, 'online_storeapp/new_product.html', {'form': NewProduct()})
 
 
 def description_product(request: HttpResponse, product_id):
-    # product = GoodsModel.objects.all().filter(pk=product_id)
-    # context_dict = {'product':product}
-    # return render(request, 'online_storeapp/description_product.html', context_dict)
     goods = GoodsModel.objects.all().filter(pk=product_id)
     name_product = GoodsModel.objects.get(pk=product_id)
-    # product = GoodsModel.objects.get(pk=num_id).pk
     description_product = GoodsModel.objects.get(
         pk=product_id).description_product
     price_of_product = GoodsModel.objects.get(
@@ -63,9 +74,10 @@ def description_product(request: HttpResponse, product_id):
     return render(request,
                   'online_storeapp/description_product.html',
                   {'name_product': name_product, 'description_product': description_product,
-                   'price_of_product': price_of_product, 'quantity_of_product': quantity_of_product,
-                   'date_product_added': date_product_added, 'image_product': image_product,
-                   "goods": goods, 'product_id': product_id
+                   'price_of_product':price_of_product, 'quantity_of_product':quantity_of_product,
+                    'date_product_added': date_product_added, 'image_product': image_product,
+                    "goods":goods,                   
+
                    })
 
 
