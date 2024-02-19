@@ -2,12 +2,14 @@
 
 {% block title %}{% endblock %}
 
+
 {% block content %}
-   <h2> Новый продукт </h2>
-   <form method="POST"  enctype="multipart/form-data">
+   <h2> Поиск</h2>
+   <form method="POST" >
     {% csrf_token %}
-    {{form.as_p}}
+    {{form.buyer.as_p}}
     <input type="submit" value="Отправить">
    </form> 
+
 
 {% endblock %}

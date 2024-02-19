@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Главная</a>
+            <a class="navbar-brand" href="{% url 'index' %}">Главная</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
                 aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -31,8 +31,7 @@
                             aria-expanded="false">Продукция</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">весь список продукции</a></li>
-                            <li><a class="dropdown-item" href="#">редактирование продукции по
-                                    id</a></li>
+                            <li><a class="dropdown-item" href="{% url 'new_product' %}">Добавить новый продукт</a></li>
                             <li><a class="dropdown-item" href="#">вывод продукции по id</a></li>
                         </ul>
                     </li>
@@ -42,7 +41,7 @@
                             aria-expanded="false">Заказы</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">весь список заказов</a></li>
-                            <li><a class="dropdown-item" href="/orders_by_days">
+                            <li><a class="dropdown-item" href="{% url 'buyer_date' %}" title="buyer_date">
                                     Список продукции клиента за кол дней</a></li>
                         </ul>
                     </li>
