@@ -24,7 +24,8 @@ class GoodsModel(models.Model):
         verbose_name='Количество')
     date_product_added = models.DateTimeField(
         auto_now_add=True, verbose_name='Дата добавления')
-    image_product = models.ImageField(upload_to="images/")
+    image_product = models.ImageField(
+        upload_to="images/", default='No image', blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse("order_list", kwargs={'order_id': self.pk})
