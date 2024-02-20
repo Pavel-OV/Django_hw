@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}  Товары за n дней {{count_day}} {% endblock %}
+{% block title %}{{ client.name_client }}'s Products for last  {{ days }} days {% endblock %}
 
 {% block content %}
-    <center>
-        <h1>Все заказы/товары клиента - '{{ buyer.name_client }}<br> за последние {{ count_day }} дней:</h1>
-        <h3>
-       
-        </h3>
-    </center>
+    <h2>все продукты пользователя: {{ client.name_client }} (id={{ client.id}}) за последние {{ days }} дн</h2>
+    {% for product in goods_set %}
+    <ul>
+        <li>
+            {{ product }}
+        </li>
+    </ul>
+
+    
+
+    {% endfor %}
 {% endblock %}
