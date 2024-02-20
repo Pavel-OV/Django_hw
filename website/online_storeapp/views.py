@@ -1,5 +1,6 @@
 
 from datetime import timedelta, timezone
+import datetime
 from django.shortcuts import redirect, render,  get_object_or_404
 from django.http import HttpResponse
 from online_storeapp.models import OrderstModel, ClientsModel, GoodsModel
@@ -32,17 +33,31 @@ def order_list(request: HttpResponse, order_id):
                                                 'buyer': buyer, 'price_total_order': price_total_order, })
 
 
-def orders_by_days(request: HttpResponse, buyer_id, count_day):
-    buyer = get_object_or_404(ClientsModel, pk=buyer_id)
-    orders = OrderstModel.objects.filter(buyer=buyer)
-    current_day = timezone.now()
-    day_of_countdown = current_day - timedelta(days=count_day)
-    list_filter_orders = []
+def orders_by_days(request, id_client: int, days: int):
+    goods = []
+    goods_set = []
+    day_of_countdown = timezone.now() - timedelta(days=days)
+    client = ClientsModel.objects.filter(pk=id_client).first()
+    orders = OrderstModel.objects.filter(
+        buyer=client, date_of_order__gte=day_of_countdown)
     for order in orders:
-        if day_of_countdown <= order.date_of_order:
-            list_filter_orders.append(order)
+        product = order.goods.all()
+        goods.append(product)
+    goods_set = set(goods)
     return render(request, 'online_storeapp/orders_by_days.html',
-                  {'list_filter_orders': list_filter_orders, 'buyer': buyer, 'count_day': count_day, })
+                  {'client': client, 'goods_set': goods_set, 'days': days})
+
+
+def buyer_date(request):
+    if request.method == 'POST':
+        form = Buyer_Order_Date(request.POST)
+        if form.is_valid():
+            days = form.cleaned_data['days']
+            id_client = form.cleaned_data['num_id']
+            return orders_by_days(request, id_client, days)
+        else:
+            return render(request, 'online_storeapp/buyer_date.html', {'form': form})
+    return render(request, 'online_storeapp/buyer_date.html', {'form': Buyer_Order_Date()})
 
 
 def new_product(request):
@@ -74,25 +89,8 @@ def description_product(request: HttpResponse, product_id):
     return render(request,
                   'online_storeapp/description_product.html',
                   {'name_product': name_product, 'description_product': description_product,
-                   'price_of_product':price_of_product, 'quantity_of_product':quantity_of_product,
-                    'date_product_added': date_product_added, 'image_product': image_product,
-                    "goods":goods,                   
+                   'price_of_product': price_of_product, 'quantity_of_product': quantity_of_product,
+                   'date_product_added': date_product_added, 'image_product': image_product,
+                   "goods": goods,
 
                    })
-
-
-def buyer_date(request):
-    if request.method == 'POST':
-        form = Buyer_Order_Date(request.POST)
-        if form.is_valid():
-            choice = form.cleaned_data.get('Неделя')
-            num_id = form.cleaned_data.get('altempts')
-            # if choice == 'Неделя':
-            #     return orders_by_days(request, num_id)
-            # elif choice == 'Месяц':
-            #     return orders_by_days(request, num_id)
-            # elif choice == 'Год':
-            #     return orders_by_days(request, num_id)
-        else:
-            return render(request, "online_storeapp/index.html", {'form': form})
-    return render(request, "online_storeapp/index.html", {'form': Buyer_Order_Date()})
