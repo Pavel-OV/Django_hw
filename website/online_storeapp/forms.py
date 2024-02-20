@@ -8,5 +8,5 @@ class NewProduct(forms.ModelForm):
 
 
 class Buyer_Order_Date(forms.Form):
-    num_id = forms.IntegerField()
-    choice = forms.ChoiceField(choices=[('Неделя',7),('Месяц',30),('Год',365)])
+    num_id = forms.IntegerField(min_value=1)
+    days = forms.IntegerField(min_value=7, max_value=365)
