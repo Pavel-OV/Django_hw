@@ -36,7 +36,7 @@ def order_list(request: HttpResponse, order_id):
 def orders_by_days(request, id_client: int, days: int):
     goods = []
     goods_set = []
-    day_of_countdown = timezone.now() - timedelta(days=days)
+    day_of_countdown = datetime.datetime.now()  - timedelta(days=days)
     client = ClientsModel.objects.filter(pk=id_client).first()
     orders = OrderstModel.objects.filter(
         buyer=client, date_of_order__gte=day_of_countdown)
