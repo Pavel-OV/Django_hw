@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %} {{buyer_id}} {% endblock %}
+
+{% block content %}
+{% for pd in all %}
+       <p> {{ pd }}</p>        
+
+    {%endfor%}
+{% endblock %}
