@@ -39,8 +39,8 @@ class GoodsModelAdmin(admin.ModelAdmin):
 
 @admin.register(OrderstModel)
 class OrderModelAdmin(admin.ModelAdmin):
-    list_display = ['buyer','total_amount_of_order','date_of_order','id',]
-    readonly_fields = ['buyer' ,'goods']
+    list_display = ['buyer','total_amount_of_order',]
+    readonly_fields = ['goods','id']
     fieldsets = [
         (
             None,
@@ -50,27 +50,21 @@ class OrderModelAdmin(admin.ModelAdmin):
             },
         ),
         (
-            'Заказы',
+            'Продукты',
             {
-                'classes': ['goods'],
-                'description': 'Текст статьи',
+                'classes': ['collapse'],
                 'fields': ['goods',],
             },
         ),
         (
-            'Катигория и дата публикации и изменений',
+            '№ Заказа',
             {
-                'fields': ['total_amount_of_order',]
+                'classes': ['collapse'],
+                'fields': ['id','total_amount_of_order',]
 
             }
         ),
-        (
-            'Число просмотров и статус статьи',
-            {
-                'description': 'Число просмотров и статус статьи',
-                'fields': ['date_of_order'],
-            }
-        ),
+       
     ]
 
 
