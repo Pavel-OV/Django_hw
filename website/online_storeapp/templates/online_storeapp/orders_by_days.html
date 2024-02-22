@@ -7,11 +7,9 @@
     {% for product in goods_set %}
     <ul>
         <li>
-            {{ product }}
+            {{ product.name_product}}
         </li>
     </ul>
-
-    
-
     {% endfor %}
+    {{goods_set.name_product}}
 {% endblock %}
