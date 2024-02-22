@@ -4,10 +4,9 @@ import datetime
 from django.shortcuts import redirect, render,  get_object_or_404
 from django.http import HttpResponse
 from online_storeapp.models import OrderstModel, ClientsModel, GoodsModel
-from .forms import NewProduct, Buyer_Order_Date
-from django.core.files.storage import FileSystemStorage
+from .forms import NewProduct, Buyer_Order_Date, NumId
 
-menu = []
+
 
 
 def index(request):
@@ -94,3 +93,19 @@ def description_product(request: HttpResponse, product_id):
                    "goods": goods,
 
                    })
+# Подготовка кода формы поиска по номеру базы данных
+
+# def searle_id(request):
+#     if request.method == 'POST':
+#         form = NumId(request.POST)
+#         if form.is_valid():
+#             num_id = form.cleaned_data['num_id']
+
+def get_all(request):
+    all = GoodsModel.objects.all()
+    return render(request, 'online_storeapp/all.html',{'all': all})
+
+
+def get_all_orders(request):
+    orders = OrderstModel.objects.all()
+    return render(request, 'shop_app/orders_all.html', {'orders':orders})
