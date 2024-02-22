@@ -106,6 +106,6 @@ def get_all(request):
     return render(request, 'online_storeapp/all.html',{'all': all})
 
 
-def get_all_orders(request):
+def get_orders_all(request):
     orders = OrderstModel.objects.all()
     return render(request, 'shop_app/orders_all.html', {'orders':orders})
