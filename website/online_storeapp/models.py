@@ -26,8 +26,8 @@ class GoodsModel(models.Model):
     image_product = models.ImageField(
         upload_to="images/", default='No image', blank=True, null=True)
 
-    def get_absolute_url(self):
-        return reverse("order_list", kwargs={'order_id': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse("order_list", kwargs={'order_id': self.pk})
 
     def __str__(self):
         return self.name_product
