@@ -33,16 +33,16 @@ def order_list(request: HttpResponse, order_id):
 
 
 def orders_by_days(request, id_client: int, days: int):
-    goods = []
     goods_set = []
     day_of_countdown = datetime.datetime.now()  - timedelta(days=days)
     client = ClientsModel.objects.filter(pk=id_client).first()
     orders = OrderstModel.objects.filter(
         buyer=client, date_of_order__gte=day_of_countdown)
     for order in orders:
-        product = order.goods.all()
-        goods.append(product)
-    goods_set = set(goods)
+        products = order.goods.all()
+        for product in products:
+            if product not in goods_set:
+                goods_set.append(product)
     return render(request, 'online_storeapp/orders_by_days.html',
                   {'client': client, 'goods_set': goods_set, 'days': days})
 

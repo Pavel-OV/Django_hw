@@ -7,9 +7,9 @@
     {% for product in goods_set %}
     <ul>
         <li>
-            {{ product.name_product}}
+            <h4>{{ product.name_product}}</h4> <p>цена за штуку  {{product.price_of_product}}</p> 
         </li>
     </ul>
     {% endfor %}
-    {{goods_set.name_product}}
+    
 {% endblock %}
