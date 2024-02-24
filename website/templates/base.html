@@ -27,8 +27,8 @@
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                             aria-expanded="false">Клиенты</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'get_clients_all' %}">весь список клиентов</a>
-                            </li>
+                            <li><a class="dropdown-item" href="{% url 'get_clients_all' %}">весь список клиентов</a></li>
+                            
                         </ul>
                     </li>
 
@@ -44,14 +44,21 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                            aria-expanded="false">Заказы</a>
-                    
+                            aria-expanded="false">Заказы</a>                    
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'get_orders_all' %}">весь список заказов</a></li>
 
                         <li><a class="dropdown-item" href="{% url 'buyer_date' %}" title="buyer_date">
                                 Список продукции клиента за кол дней</a></li>
                     </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                            aria-expanded="false">Поиск</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'form_id' %}">Поиск по номеру</a></li>
+                        </ul>
+                    </li>
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about_me">О себе</a>

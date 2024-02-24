@@ -4,12 +4,14 @@
 
 
 {% block content %}
-   <h2> Поиск</h2>
-   <form method="POST" >
-    {% csrf_token %}
-    {{form.buyer.as_p}}
-    <input type="submit" value="Отправить">
-   </form> 
+   
+<h1>Введите id  </h1>
 
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+<input type="submit" value="выбрать">
+    
+</form>
 
 {% endblock %}
