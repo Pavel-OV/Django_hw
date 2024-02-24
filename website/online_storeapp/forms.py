@@ -16,3 +16,7 @@ class Buyer_Order_Date(forms.Form):
 
 class NumId(forms.Form):
     num_id = forms.IntegerField(min_value=1)
+
+class Id_Num(forms.Form):
+    choice = forms.ChoiceField(choices=[('Client',"Покупалели"),('Order','Заказы'),('Goods','Товары')])
+    num_id = forms.IntegerField()
