@@ -7,8 +7,6 @@ from online_storeapp.models import OrderstModel, ClientsModel, GoodsModel
 from .forms import NewProduct, Buyer_Order_Date, NumId
 
 
-
-
 def index(request):
     return render(request, "online_storeapp/index.html")
 
@@ -34,7 +32,7 @@ def order_list(request: HttpResponse, order_id):
 
 def orders_by_days(request, id_client: int, days: int):
     goods_set = []
-    day_of_countdown = datetime.datetime.now()  - timedelta(days=days)
+    day_of_countdown = datetime.datetime.now() - timedelta(days=days)
     client = ClientsModel.objects.filter(pk=id_client).first()
     orders = OrderstModel.objects.filter(
         buyer=client, date_of_order__gte=day_of_countdown)
@@ -101,11 +99,17 @@ def description_product(request: HttpResponse, product_id):
 #         if form.is_valid():
 #             num_id = form.cleaned_data['num_id']
 
-def get_all(request):
-    all = GoodsModel.objects.all()
-    return render(request, 'online_storeapp/all.html',{'all': all})
+
+def get_goods_all(request):
+    all_goods = GoodsModel.objects.all()
+    return render(request, 'online_storeapp/get_goods_all.html', {'all_goods': all_goods})
 
 
 def get_orders_all(request):
     orders = OrderstModel.objects.all()
-    return render(request, 'shop_app/orders_all.html', {'orders':orders})
+    return render(request, 'online_storeapp/get_orders_all.html', {'orders': orders})
+
+
+def get_clients_all(request):
+    clients_all = OrderstModel.objects.all()
+    return render(request, 'online_storeapp/get_clients_all.html', {'clients_all': clients_all})
