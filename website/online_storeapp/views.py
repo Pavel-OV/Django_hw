@@ -4,16 +4,21 @@ import datetime
 from django.shortcuts import redirect, render,  get_object_or_404
 from django.http import HttpResponse
 from online_storeapp.models import OrderstModel, ClientsModel, GoodsModel
-from .forms import NewProduct, Buyer_Order_Date, NumId
+from .forms import NewProduct, Buyer_Order_Date, NumId, Id_Num
 
 
 def index(request):
     return render(request, "online_storeapp/index.html")
 
 
-def get_all_orders(request: HttpResponse, name_client):
+def get_all_orders_client(request: HttpResponse, name_client):
     orders = OrderstModel.objects.filter(buyer_id=name_client)
     return render(request, 'online_storeapp/orders.html', {'orders': orders, 'buyer_id': name_client})
+
+
+def get_order(request: HttpResponse, order):
+    order = OrderstModel.objects.filter(id=order)
+    return render(request, 'online_storeapp/orders.html', {'orders': order, 'buyer_id': order})
 
 
 def order_list(request: HttpResponse, order_id):
@@ -91,13 +96,6 @@ def description_product(request: HttpResponse, product_id):
                    "goods": goods,
 
                    })
-# Подготовка кода формы поиска по номеру базы данных
-
-# def searle_id(request):
-#     if request.method == 'POST':
-#         form = NumId(request.POST)
-#         if form.is_valid():
-#             num_id = form.cleaned_data['num_id']
 
 
 def get_goods_all(request):
@@ -113,3 +111,20 @@ def get_orders_all(request):
 def get_clients_all(request):
     clients_all = OrderstModel.objects.all()
     return render(request, 'online_storeapp/get_clients_all.html', {'clients_all': clients_all})
+
+
+def search_num(request):
+    if request.method == 'POST':
+        form = Id_Num(request.POST)
+        if form.is_valid():
+            choice = form.cleaned_data.get('choice')
+            num_id = form.cleaned_data.get('num_id')
+            if choice == 'Client':
+                return get_all_orders_client(request, num_id)
+            elif choice == 'Order':
+                return order_list(request, num_id)
+            # elif choice == 'Goods':
+            #     return gen_number(request, num_id)
+        else:
+            return render(request, "online_storeapp/form_id.html", {'form': form})
+    return render(request, "online_storeapp/form_id.html", {'form': Id_Num()})
