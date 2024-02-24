@@ -3,8 +3,8 @@
 {% block title %} {{buyer_id}} {% endblock %}
 
 {% block content %}
-<h2>Все товары</h2>
-{% for pd in all_goods %}
+<h2>Все заказы</h2>
+{% for pd in orders %}
        <p> {{ pd }}</p>        
 
     {%endfor%}
