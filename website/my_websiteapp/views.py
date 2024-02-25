@@ -11,4 +11,4 @@ def index(request):
 
 def about(request):
     logger.info("Cтраница about загрузилась")
-    return HttpResponse("<h1>Страница обо мне</h2")
+    return HttpResponse("<h1>Страница обо мне</h1")
