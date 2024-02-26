@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Главная</a>
+            <a class="navbar-brand" href="{% url 'index' %}">Главная</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
                 aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -23,28 +23,42 @@
 
             <div class="collapse navbar-collapse" id="navbarsExample03">
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Клиенты</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                            aria-expanded="false">Продукция</a>
+                            aria-expanded="false">Клиенты</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">весь список продукции</a></li>
-                            <li><a class="dropdown-item" href="#">редактирование продукции по
-                                    id</a></li>
-                            <li><a class="dropdown-item" href="#">вывод продукции по id</a></li>
+                            <li><a class="dropdown-item" href="{% url 'get_clients_all' %}">весь список клиентов</a></li>
+                            
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                            aria-expanded="false">Заказы</a>
+                            aria-expanded="false">Продукция</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">весь список заказов</a></li>
-                            <li><a class="dropdown-item" href="/orders_by_days">
-                                    Список продукции клиента за кол дней</a></li>
+                            <li><a class="dropdown-item" href="{% url 'get_goods_all' %}">весь список продукции</a></li>
+                            <li><a class="dropdown-item" href="{% url 'new_product' %}">Добавить новый продукт</a></li>
+
                         </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                            aria-expanded="false">Заказы</a>                    
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'get_orders_all' %}">весь список заказов</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'buyer_date' %}" title="buyer_date">
+                                Список продукции клиента за кол дней</a></li>
+                    </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                            aria-expanded="false">Поиск</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'form_id' %}">Поиск по номеру</a></li>
+                        </ul>
+                    </li>
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about_me">О себе</a>

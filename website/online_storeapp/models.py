@@ -11,8 +11,7 @@ class ClientsModel(models.Model):
         auto_now_add=True, verbose_name='Дата регистрации')
 
     def __str__(self):
-        return f''' Клиент:{self.name_client} телефон {self.phone } 
-             '''
+        return self.name_client
 
 
 class GoodsModel(models.Model):
@@ -24,9 +23,11 @@ class GoodsModel(models.Model):
         verbose_name='Количество')
     date_product_added = models.DateTimeField(
         auto_now_add=True, verbose_name='Дата добавления')
+    image_product = models.ImageField(
+        upload_to="images/", default='No image', blank=True, null=True)
 
-    def get_absolute_url(self):
-        return reverse("order_list", kwargs={'order_id': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse("order_list", kwargs={'order_id': self.pk})
 
     def __str__(self):
         return self.name_product
@@ -42,7 +43,5 @@ class OrderstModel(models.Model):
         auto_now_add=True, verbose_name='Дата оформления заказа')
 
     def __str__(self):
-        return f''' № Заказа: {self.id}
-            от {self. date_of_order } 
-             клиент: {self.buyer.name_client}
-             на сумму {self.total_amount_of_order}'''
+        return   self.buyer.name_client
+           

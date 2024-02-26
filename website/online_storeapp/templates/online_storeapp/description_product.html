@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+<h2>Описание товара {{product_id}}</h2>
+
+   <h2>{{name_product}}</h2>
+   <p> </p>
+   <h3>Описание продукта: {{name_product}} <br>
+    {{ description_product }}</h3>
+   <h3> Цена за единицу товара <br>{{price_of_product}}</h3>
+   <h3> Количество товара <br>{{quantity_of_product}}</h3>
+   <img src="{{image_product.url}}" alt="" />
+   <p>{{image_product}}</p>
+   <h5> Поставлен на продажу <br> {{ date_product_added }}</h5>
+   
+    {% endblock %}
