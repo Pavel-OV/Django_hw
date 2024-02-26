@@ -109,7 +109,7 @@ def get_orders_all(request):
 
 
 def get_clients_all(request):
-    clients_all = OrderstModel.objects.all()
+    clients_all = ClientsModel.objects.all()
     return render(request, 'online_storeapp/get_clients_all.html', {'clients_all': clients_all})
 
 
